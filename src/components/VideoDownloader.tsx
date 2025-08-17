@@ -136,36 +136,36 @@ export const VideoDownloader = () => {
 
   return (
     <div className="min-h-screen bg-gradient-background">
-      <div className="container mx-auto px-4 py-8">
-        {/* Header */}
-        <div className="text-center mb-12">
-          <h1 className="text-4xl md:text-6xl font-bold mb-4 bg-gradient-primary bg-clip-text text-transparent">
+      <div className="container mx-auto px-4 py-6 max-w-md">
+        {/* Mobile Header */}
+        <div className="text-center mb-8">
+          <h1 className="text-3xl md:text-4xl font-bold mb-3 bg-gradient-primary bg-clip-text text-transparent">
             Video Downloader
           </h1>
-          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-            Download videos from any URL with multiple format and quality options
+          <p className="text-sm text-muted-foreground">
+            Download videos from any URL
           </p>
-          <div className="mt-4 p-4 rounded-lg border border-yellow-600/20 bg-yellow-600/10">
-            <p className="text-sm text-yellow-200">
-              ⚠️ Please ensure you have permission to download content and comply with platform terms of service
+          <div className="mt-3 p-3 rounded-lg border border-yellow-600/20 bg-yellow-600/10">
+            <p className="text-xs text-yellow-200">
+              ⚠️ Ensure you have permission to download content
             </p>
           </div>
         </div>
 
-        {/* Download Form */}
-        <Card className="backdrop-blur-glass bg-glass-bg border-glass-border shadow-glow mb-8 p-6">
-          <div className="space-y-6">
-            <div className="space-y-4">
+        {/* Mobile-Optimized Download Form */}
+        <Card className="backdrop-blur-glass bg-glass-bg border-glass-border shadow-glow mb-6 p-4">
+          <div className="space-y-4">
+            <div className="space-y-3">
               <Input
                 placeholder="Paste video URL here..."
                 value={url}
                 onChange={(e) => setUrl(e.target.value)}
-                className="text-lg py-6 backdrop-blur-sm bg-black/20 border-glass-border"
+                className="text-base py-4 backdrop-blur-sm bg-black/20 border-glass-border"
               />
               
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div className="space-y-2">
-                  <label className="text-sm font-medium">Format</label>
+              <div className="grid grid-cols-2 gap-3">
+                <div className="space-y-1">
+                  <label className="text-xs font-medium">Format</label>
                   <Select value={selectedFormat} onValueChange={setSelectedFormat}>
                     <SelectTrigger className="backdrop-blur-sm bg-black/20 border-glass-border">
                       <SelectValue />
@@ -193,8 +193,8 @@ export const VideoDownloader = () => {
                   </Select>
                 </div>
 
-                <div className="space-y-2">
-                  <label className="text-sm font-medium">Quality</label>
+                <div className="space-y-1">
+                  <label className="text-xs font-medium">Quality</label>
                   <Select value={selectedQuality} onValueChange={setSelectedQuality}>
                     <SelectTrigger className="backdrop-blur-sm bg-black/20 border-glass-border">
                       <SelectValue />
@@ -212,47 +212,47 @@ export const VideoDownloader = () => {
 
             <Button 
               onClick={handleDownload}
-              className="w-full py-6 text-lg bg-gradient-primary hover:shadow-glow transition-all duration-300"
+              className="w-full py-4 text-base bg-gradient-primary hover:shadow-glow transition-all duration-300"
               disabled={!url.trim()}
             >
-              <Download className="mr-2" size={20} />
+              <Download className="mr-2" size={18} />
               Start Download
             </Button>
           </div>
         </Card>
 
-        {/* Downloads List */}
+        {/* Mobile Downloads List */}
         {downloads.length > 0 && (
           <Card className="backdrop-blur-glass bg-glass-bg border-glass-border shadow-glow">
-            <div className="p-6">
-              <div className="flex items-center gap-2 mb-6">
-                <History size={20} />
-                <h2 className="text-xl font-semibold">Downloads</h2>
-                <Badge variant="secondary" className="ml-auto">
+            <div className="p-4">
+              <div className="flex items-center gap-2 mb-4">
+                <History size={18} />
+                <h2 className="text-lg font-semibold">Downloads</h2>
+                <Badge variant="secondary" className="ml-auto text-xs">
                   {downloads.length}
                 </Badge>
               </div>
 
-              <div className="space-y-4">
+              <div className="space-y-3">
                 {downloads.map((download) => (
                   <div 
                     key={download.id}
-                    className="p-4 rounded-lg backdrop-blur-sm bg-black/20 border border-glass-border"
+                    className="p-3 rounded-lg backdrop-blur-sm bg-black/20 border border-glass-border"
                   >
-                    <div className="flex items-center justify-between mb-3">
+                    <div className="flex items-start justify-between mb-2">
                       <div className="flex-1 min-w-0">
-                        <h3 className="font-medium truncate">{download.title}</h3>
-                        <p className="text-sm text-muted-foreground truncate">
+                        <h3 className="font-medium text-sm leading-tight truncate">{download.title}</h3>
+                        <p className="text-xs text-muted-foreground truncate mt-1">
                           {download.url}
                         </p>
-                        <div className="flex items-center gap-2 mt-1">
-                          <Badge variant="outline" className="text-xs">
+                        <div className="flex items-center gap-1 mt-2 flex-wrap">
+                          <Badge variant="outline" className="text-xs px-1 py-0">
                             {download.format.toUpperCase()}
                           </Badge>
-                          <Badge variant="outline" className="text-xs">
+                          <Badge variant="outline" className="text-xs px-1 py-0">
                             {download.quality}
                           </Badge>
-                          <div className={`w-2 h-2 rounded-full ${getStatusColor(download.status)}`} />
+                          <div className={`w-1.5 h-1.5 rounded-full ${getStatusColor(download.status)}`} />
                           <span className="text-xs capitalize">{download.status}</span>
                         </div>
                       </div>
@@ -262,18 +262,18 @@ export const VideoDownloader = () => {
                           variant="ghost"
                           size="sm"
                           onClick={() => toggleDownload(download.id)}
-                          className="ml-4"
+                          className="ml-2 h-8 w-8"
                         >
                           {download.status === 'downloading' ? 
-                            <Pause size={16} /> : <Play size={16} />
+                            <Pause size={14} /> : <Play size={14} />
                           }
                         </Button>
                       )}
                     </div>
 
                     {download.status === 'downloading' && (
-                      <div className="space-y-2">
-                        <Progress value={download.progress} className="h-2" />
+                      <div className="space-y-1">
+                        <Progress value={download.progress} className="h-1.5" />
                         <p className="text-xs text-muted-foreground text-right">
                           {Math.round(download.progress)}%
                         </p>
@@ -281,8 +281,8 @@ export const VideoDownloader = () => {
                     )}
 
                     {download.status === 'completed' && (
-                      <div className="text-sm text-green-400 font-medium">
-                        ✓ Download completed successfully
+                      <div className="text-xs text-green-400 font-medium">
+                        ✓ Download completed
                       </div>
                     )}
                   </div>
